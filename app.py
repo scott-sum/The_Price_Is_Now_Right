@@ -2,7 +2,7 @@ import requests
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy 
 from bs4 import BeautifulSoup
-import smtplib #mail protocol allows sending of email
+import smtplib # mail protocol allows sending of email
 import time
 
 app = Flask(__name__)
@@ -40,8 +40,8 @@ def send_mail(address, link):
 
     server.login('scotttnsum@gmail.com', 'cpmhhoretmxmajmk')
 
-    subject = 'Price fell down!'
-    body = f'Check the amazon link {link}'
+    subject = 'Price fell down! The price is now right!'
+    body = f'Check the amazon link! {link}'
 
     msg = f"Subject: {subject}\n\n{body}"
     

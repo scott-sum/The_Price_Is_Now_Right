@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>The Price is Right!</title>
+        <title>The Price Is Now Right!</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
@@ -11,32 +11,34 @@
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <link href="/C:\Coding\Side Projects\web_scraping\amazon/favicon.ico" rel="icon" type="image/x-icon" />
         
     </head>
     <body>
-        <div class="container-fluid">
-            <div class="row jumbotron">
+        <div class="container-fluid text-center">
+            <div class="row jumbotron bg-success">
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 cl-xl-10">
-                    <h1 class="head_title">The Price is Right!</h1>
+                    <h1 class="head_title"><strong>The Price Is Now Right!</strong></h1>
                 </div>
             </div>
         </div>
-        <div class="container-fluid">
+        <div class="container-fluid text-center">
             <form method="POST" onsubmit="change()">
-                1. Enter the URL of the product you want on Amazon:
-                <input type="text" class="input" name="product"><br><br>
-                2. What is your budget for this item?
-                <input type="text" class="input" name="budget"><br><br>
-                3. What is your email?
-                <input type="text" class="input" name="email"><br><br>
-                <button type="submit" id="enter">Start Observing</button>
-                
+                1. Enter the URL of the item you want on Amazon: 
+                <input type="text" class="input" name="product"><br><br><br>
+                2. Enter your budget for this item:
+                <input type="text" class="input" name="budget"><br><br><br>
+                3. Enter your e-mail; We will only use it to send you updates:
+                <input type="text" class="input" name="email"><br><br><br>
+                <button type="submit" id="enter">Start Price Tracking!</button>                
             </form> 
-                          
-        </div>       
+            <br>
+            <img class="tracker" src="../images/tracker.gif">                         
+        </div>    
+           
     <script>
         function change() {
-           alert("Observing...\nWe will send you an email once the price goes down!");
+           alert("Price Tracking in Progress...\nWe will send you an email once the price goes down!");
         }
     </script>    
     </body>
