@@ -1,7 +1,8 @@
 {% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
-Home | The Price Is Now Right
+Sign Up | The Price is Now Right
 {% endblock %}
 
 {% block head %}
@@ -13,12 +14,12 @@ Home | The Price Is Now Right
 
 {% block styles %}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='starter-template.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Cabin:700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{url_for('.static', filename='signin.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Cabin:700&display=swap" rel="stylesheet"> 
 {% endblock %}
 
 {% block content %}
-{{super()}}
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -33,21 +34,26 @@ Home | The Price Is Now Right
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+        <li class="active"><a href="#">Sign Up</a></li>
       </ul>
     </div>
     <!--/.nav-collapse -->
   </div>
 </nav>
-<br><br><br><br><br><br>
+
 <div class="container-fluid">
-  <div class="container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-    <h3 class="describe">Easily track prices of things you want until it meets your budget!</h3>
-    <br>
-    <a class="start" href="{{ url_for('login') }}"><button class="startbutton btn btn-lg btn-primary">Start Tracking</button></a>
-  </div>
+
+  <form class="form-signin" method="POST" action="/signup">
+    <h2 class="form-signin-heading text-center">Sign Up</h2>
+    {{ form.hidden_tag() }}
+    {{ wtf.form_field(form.username) }}
+    {{ wtf.form_field(form.email) }}
+    {{ wtf.form_field(form.password) }}
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+  </form>
+
 </div>
 
 {%- block footer %}

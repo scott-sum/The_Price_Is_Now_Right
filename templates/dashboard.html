@@ -1,0 +1,74 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Dashboard | The Price is Now Right
+{% endblock %}
+
+{% block head %}
+{{super()}}
+{% block favicon %}
+<link href="../static/favicon.ico" rel="icon" type="image/x-icon" />
+{% endblock %}
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
+<link href="https://fonts.googleapis.com/css?family=Cabin:700&display=swap" rel="stylesheet"> 
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="logo navbar-brand" href="{{ url_for('index') }}">The Price is Now Right</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+
+<br>
+
+<div class="container-fluid text-center">
+    <form method="POST" onsubmit="change()">
+        1. Enter the URL of the item you want on Amazon:
+        <input type="text" class="input" name="product"><br><br><br>
+        2. Enter your budget for this item:
+        <input type="text" class="input" name="budget"><br><br><br>
+        3. Enter your gmail; We will only use it to send you updates:
+        <input type="text" class="input" name="email" value={{ name }}><br><br><br>
+        <button class="btn btn-primary btn-lg" type="submit" id="enter">Start Price Tracking!</button>
+    </form>
+    <br>
+    <img class="tracker" src="../static/tracker.gif">
+</div>
+
+{%- block footer %}
+<footer>
+	<span class="container-fluid">
+		<h4 class="created text-center">Developed with Flask, a Python MicroFramework</h4>        
+  </span>
+</footer>
+{%- endblock footer %}
+
+<script>
+    function change() {
+        alert("Price Tracking in Progress...\nWe will send you an email once the price goes down!");
+    }
+</script>
+
+</div>
+
+{% endblock %}
