@@ -15,6 +15,7 @@ werkzeug = "*"
 flask-login = "*"
 bs4 = "*"
 flask-wtf = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.7"
