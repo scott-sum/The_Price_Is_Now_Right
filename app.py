@@ -58,6 +58,7 @@ def check_price():
 
     if (converted_price < float(budget)):
         send_mail(mail, URL)
+        
 
 
 def send_mail(address, link):   
@@ -83,7 +84,9 @@ def send_mail(address, link):
     )
 
     print('Email sent')
+    
     server.quit()
+    return render_template('index.html')
 
 ##########################################################################################################################################################################3
 
@@ -138,7 +141,7 @@ def submission():
     while(True):
         check_price()
         time.sleep(86400)    
-    return render_template('dashboard.html')
+    return redirect(url_for('index'))
 
 ########################################################################################
 
