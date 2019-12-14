@@ -53,8 +53,6 @@ def check_price():
 
     soup = BeautifulSoup(page.content, 'html')
 
-    title = soup.find(id="productTitle").text.strip()
-
     price = soup.find(id="price_inside_buybox").text.strip()
     converted_price = float(price[5:8])
 
