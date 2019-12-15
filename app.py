@@ -50,7 +50,7 @@ def check_price():
     budget = request.form.get('budget')
     mail = request.form.get('email')
     page = requests.get(URL, headers=headers)
-
+    print(page.content)
     soup = BeautifulSoup(page.content, 'html')
 
     price = soup.find(id="price_inside_buybox").text.strip()
