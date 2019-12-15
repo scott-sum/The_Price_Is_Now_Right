@@ -16,6 +16,7 @@ flask-login = "*"
 bs4 = "*"
 flask-wtf = "*"
 gunicorn = "*"
+lxml = "*"
 
 [requires]
 python_version = "3.7"
