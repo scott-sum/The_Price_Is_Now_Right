@@ -51,8 +51,10 @@ def check_price():
     mail = request.form.get('email')
     page = requests.get(URL, headers=headers)
     
-    soup = BeautifulSoup(page.content, 'html')
-    print(soup)
+    soup = BeautifulSoup(page.content, 'lxml')
+    
+    
+
 
     price = soup.find(id="price_inside_buybox").text.strip()
     converted_price = float(price[5:8])
