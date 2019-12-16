@@ -52,15 +52,14 @@ def check_price():
     page = requests.get(URL, headers=headers)
     
     soup = BeautifulSoup(page.content, 'lxml')
-    
-    
-
-
     price = soup.find(id="price_inside_buybox").text.strip()
     converted_price = float(price[5:8])
 
     if (converted_price < float(budget)):
         send_mail(mail, URL)
+        return 0
+    else:
+        return 1
         
 
 
@@ -141,8 +140,9 @@ def dashboard():
 @app.route('/dashboard', methods=['POST'])
 @login_required
 def submission():
-    while(True):
-        check_price()
+    while(True):        
+        if (check_price() == 0):
+            break
         time.sleep(86400)    
     return redirect(url_for('index'))
 
