@@ -17,11 +17,16 @@ import time
 app = Flask(__name__) 
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://scottsum:mysequelpassword@localhost/site_db'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://scottsum:mysequelpassword@localhost/site_db'
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False # no sqlalchemy warnings in console
 bootstrap = Bootstrap(app) # allows use of flask-bootstrap
 db = SQLAlchemy(app) # database
+mysql://b6aaca6de66f53:a00378e5@us-cdbr-iron-east-05.cleardb.net/heroku_931737ac09f87b4?reconnect=true
+app.config['MYSQL_DATABASE_USER'] = 'b6aaca6de66f53'
+app.config['MYSQL_DATABASE_PASSWORD'] = 'a00378e5'
+app.config['MYSQL_DATABASE_DB'] = 'heroku_931737ac09f87b4'
+app.config['MYSQL_DATABASE_HOST'] = 'us-cdbr-iron-east-05.cleardb.net'
 
 login_manager = LoginManager()
 login_manager.init_app(app)
