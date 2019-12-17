@@ -7,30 +7,37 @@ from wtforms.validators import InputRequired, Email, Length
 from flask_sqlalchemy  import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup # needed for web scraping
 import smtplib
 import time
 
+# Instantiation
 app = Flask(__name__) 
+
 app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # location of database
 SQLALCHEMY_TRACK_MODIFICATIONS = False # no sqlalchemy warnings in console
 bootstrap = Bootstrap(app) # allows use of flask-bootstrap
 db = SQLAlchemy(app) # database
+
+# Initialization
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+# UserMixin provides default implementations for the methods flask-login expects users to have
 class User(UserMixin, db.Model): # creating table
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
     email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(80))
 
+# connects flask-login and database
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# Different Forms
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
     password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
@@ -113,10 +120,10 @@ def index():
 def login():
     form = LoginForm()
 
-    if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
-        if user:
-            if check_password_hash(user.password, form.password.data):
+    if form.validate_on_submit():  #checks if form has been submitted
+        user = User.query.filter_by(username=form.username.data).first() # getting user from form
+        if user: # checks if the user exists in the database
+            if check_password_hash(user.password, form.password.data):  # checks if password is correct (imported method)
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
 
@@ -131,8 +138,9 @@ def signup():
     form = RegisterForm()
 
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='sha256')
-        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        hashed_password = generate_password_hash(form.password.data, method='sha256') # hashing the password; sha236 generates a hash that is 80 characters long
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password) # creating a new user
+        # adding and commit to database
         db.session.add(new_user)
         db.session.commit()
 
@@ -144,13 +152,13 @@ def signup():
 
 # dashboard page or the page with the price tracking form
 @app.route('/dashboard')
-@login_required
+@login_required #cannot access directly must login first
 def dashboard():
     return render_template('dashboard.html', name=current_user.email) # gets the email of the user that is currently logged in
 
 
 @app.route('/dashboard', methods=['POST'])
-@login_required
+@login_required #cannot access directly must login first
 def submission():
     while(True):        
         if (check_price() == 0):  # check_price() == 0 means that the price is under the budget and an email was sent
@@ -161,7 +169,7 @@ def submission():
 ########################################################################################
 
 @app.route('/logout')
-@login_required
+@login_required #cannot access directly must login first
 def logout():
     logout_user()
     return redirect(url_for('index'))
