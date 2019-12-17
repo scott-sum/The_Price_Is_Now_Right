@@ -171,7 +171,7 @@ def submission():
 @app.route('/logout')
 @login_required #cannot access directly must login first
 def logout():
-    logout_user()
+    logout_user() # method from flask-login
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
