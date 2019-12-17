@@ -41,6 +41,7 @@ Dashboard | The Price is Now Right
 
 <br>
 
+<!-- form for price tracking-->
 <div class="container-fluid text-center">
     <form method="POST" onsubmit="change()" action="/dashboard">
         1. Enter the URL of the item you want on Amazon:
@@ -48,6 +49,7 @@ Dashboard | The Price is Now Right
         2. Enter your budget for this item:
         <input type="text" class="input" name="budget"><br><br><br>
         3. Enter your gmail; We will only use it to send you updates:
+        <!--Should get gmail from sign up form and autofill-->
         <input type="text" class="input" name="email" value={{ name }}><br><br><br>
         <button class="btn btn-primary btn-lg" type="submit" id="enter">Start Price Tracking!</button>
     </form>

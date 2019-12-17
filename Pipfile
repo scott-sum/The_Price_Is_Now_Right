@@ -17,6 +17,7 @@ bs4 = "*"
 flask-wtf = "*"
 gunicorn = "*"
 lxml = "*"
+mysqlclient = "*"
 
 [requires]
 python_version = "3.7"
