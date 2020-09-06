@@ -19,6 +19,7 @@ lxml = "*"
 bootstrap-flask = "*"
 flask-migrate = "*"
 wtforms-validators = "*"
+email-validator = "*"
 
 [requires]
 python_version = "3.7"
