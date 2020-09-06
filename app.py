@@ -14,10 +14,8 @@ import time
 
 # Instantiation
 app = Flask(__name__) 
+app.config.from_pyfile('settings.py')
 
-app.config['SECRET_KEY'] = 'Thisissupposedtobesecret!'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # location of database
-SQLALCHEMY_TRACK_MODIFICATIONS = False # no sqlalchemy warnings in console
 bootstrap = Bootstrap(app) # allows use of flask-bootstrap
 db = SQLAlchemy(app) # database
 migrate = Migrate(app, db)
