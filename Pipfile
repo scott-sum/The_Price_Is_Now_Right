@@ -18,6 +18,7 @@ gunicorn = "*"
 lxml = "*"
 bootstrap-flask = "*"
 flask-migrate = "*"
+wtforms-validators = "*"
 
 [requires]
 python_version = "3.7"

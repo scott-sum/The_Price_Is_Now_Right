@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "def657247a1548d4a43936b99649f48b07bb1e278543c36030ce9d938b51811a"
+            "sha256": "d400e2b1aec69888bef603ffaebdef41ab99dc4b578af08f83e3405a51b7b9e8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -66,6 +66,13 @@
             ],
             "version": "==7.1.2"
         },
+        "dnspython": {
+            "hashes": [
+                "sha256:044af09374469c3a39eeea1a146e8cac27daec951f1f1f157b1962fc7cb9d1b7",
+                "sha256:40bb3c24b9d4ec12500f0124288a65df232a3aa749bb0c39734b782873a2544d"
+            ],
+            "version": "==2.0.0"
+        },
         "flask": {
             "hashes": [
                 "sha256:4efa1ae2d7c9865af48986de8aeb8504bf32c7f3d6fdc9353d34b21f4b127060",
@@ -120,6 +127,13 @@
                 "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"
             ],
             "version": "==2.10"
+        },
+        "is-disposable-email": {
+            "hashes": [
+                "sha256:905c84806d8d89c87d77925807a4a2830da6964f89b879a3a9247c314f18e777",
+                "sha256:d31f0200aea99f5f74bf6a6092fc6a65d232d7932a80152a6437e5b8c7884b06"
+            ],
+            "version": "==1.0.0"
         },
         "itsdangerous": {
             "hashes": [
@@ -313,6 +327,14 @@
             ],
             "index": "pypi",
             "version": "==2.3.3"
+        },
+        "wtforms-validators": {
+            "hashes": [
+                "sha256:6bafc63fb4a000d097da010d8e89dddffe93e894f2ff91069117f774b93e1f7c",
+                "sha256:b61e2da9b3cb8ce77e59550168eb9c445b13f4ad3b262c26b0bb2801aed2462e"
+            ],
+            "index": "pypi",
+            "version": "==1.0.0"
         }
     },
     "develop": {}

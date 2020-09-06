@@ -45,7 +45,7 @@ Dashboard | The Price is Now Right
         <h4 class="budget small">Budget: ${{ product.userBudget }}</h4>
         <div class="d-flex justify-content-between">
             <form class='adjust-budget d-flex' method="POST" action="{{ url_for('budget', id=product.id) }}">
-                <input class='budget-update input-lg' type="number" id="new_budget" name="new_budget" min="0" max="{{ product.currentPrice + 2 }}" step=".01"><br>            
+                <input class='budget-update input-lg' type="number" id="new_budget" name="new_budget" min="0" max="{{ product.currentPrice }}" step=".01"><br>            
                 <input class='budget-update-btn btn btn-primary' type="submit" value="Adjust Budget">
             </form>
             <form class='remove-wishlist' action="{{ url_for('delete', id=product.id) }}">
