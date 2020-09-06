@@ -3,6 +3,7 @@ body {
     padding-bottom: 40px;
     background-color: #eee;
     font-family: Cabin;
+    font-size: 20px;
   }
 
   .logo {
@@ -12,11 +13,10 @@ body {
  }
 
  footer {
-  background-color: #3f3f3f;
-  color: #d5d5d5;    
-  position: absolute;
-  bottom: 0;
-  width: 100%;  
+    color: #111111;    
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
   
 }
 

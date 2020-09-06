@@ -7,6 +7,7 @@ body {
     -o-background-size: cover;
     background-size: cover;
     font-family: Cabin;
+    font-size: 20px;
      
   
 }
@@ -37,6 +38,14 @@ footer {
     bottom: 0;
     width: 100%;  
     
+}
+
+.amazon {    
+    font-size: 20px;
+}
+
+.amazon a {
+    color: #d5d5d5;
 }
 
 

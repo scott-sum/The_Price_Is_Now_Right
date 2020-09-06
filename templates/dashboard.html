@@ -1,4 +1,5 @@
-{% extends "bootstrap/base.html" %}
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_field %}
 
 {% block title %}
 Dashboard | The Price is Now Right
@@ -18,39 +19,27 @@ Dashboard | The Price is Now Right
 {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="logo navbar-brand" href="{{ url_for('index') }}">The Price is Now Right</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
-            </ul>
-
-        </div>
-    </div>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ url_for('index') }}">The Price Is Now Right</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('wishlist') }}">Wishlist</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Log Out</a></li>
+    </ul>
+  </div>
 </nav>
 
 <br>
 
 <!-- form for price tracking-->
 <div class="container-fluid text-center">
-    <form method="POST" onsubmit="change()" action="/dashboard">
-        1. Enter the URL of the item you want on Amazon:
-        <input type="text" class="input" name="product"><br><br><br>
-        2. Enter your budget for this item:
-        <input type="text" class="input" name="budget"><br><br><br>
-        3. Enter your gmail; We will only use it to send you updates:
-        <!--Should get gmail from sign up form and autofill-->
-        <input type="text" class="input" name="email" value={{ name }}><br><br><br>
+    <form class="form-track" method="POST" onsubmit="change()" method="POST" action="/dashboard">
+        {{ form.csrf_token() }}  <!--cross site request forgery token for flask-wtf-->
+        {{ render_field(form.url) }} <!--getting info from form fields-->
+        {{ render_field(form.userBudget) }}
         <button class="btn btn-primary btn-lg" type="submit" id="enter">Start Price Tracking!</button>
     </form>
     <br>
@@ -58,16 +47,12 @@ Dashboard | The Price is Now Right
 </div>
 
 {%- block footer %}
-<footer>
-	<span class="container-fluid">
-		<h4 class="created text-center">Developed with Flask, a Python MicroFramework</h4>        
-  </span>
-</footer>
+
 {%- endblock footer %}
 
 <script>
     function change() {
-        alert("Price Tracking in Progress...\nWe will send you an email once the price goes down!");
+        alert("Price Tracking...\nYou will receive an email once the price goes down!");
     }
 </script>
 

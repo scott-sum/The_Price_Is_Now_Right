@@ -1,5 +1,5 @@
-{% extends "bootstrap/base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_field %}
 
 {% block title %}
 Login | The Price Is Now Right
@@ -19,47 +19,37 @@ Login | The Price Is Now Right
 {% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-        aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="logo navbar-brand" href="{{ url_for('index') }}">The Price is Now Right</a>
-    </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li class="active"><a href="#">Login</a></li>
-        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ url_for('index') }}">The Price Is Now Right</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    {% if current_user.is_anonymous %}
+      <ul class="navbar-nav ml-auto">                
+        <li class="nav-item active"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a></li> 
       </ul>
-    </div>
-    <!--/.nav-collapse -->
+    {% endif %}    
   </div>
 </nav>
+
+<br>
 
 <div class="container-fluid">
 
   <form class="form-signin" method="POST" action="/login">
     <h2 class="form-signin-heading text-center">Log In</h2>
-    {{ form.hidden_tag() }}  <!--cross site request forgery token for flask-wtf-->
-    {{ wtf.form_field(form.username) }} <!--getting info from form fields-->
-    {{ wtf.form_field(form.password) }}
-    {{ wtf.form_field(form.remember) }}
+    {{ form.csrf_token() }}  <!--cross site request forgery token for flask-wtf-->
+    {{ render_field(form.username) }} <!--getting info from form fields-->
+    {{ render_field(form.password) }}
+    {{ render_field(form.remember) }}
     <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
   </form>
 
 </div>
 
 {%- block footer %}
-<footer>
-	<span class="container-fluid">
-		<h4 class="created text-center">Developed with Flask, a Python MicroFramework</h4>        
-  </span>
-</footer>
+
 {%- endblock footer %}
 {% endblock %}
