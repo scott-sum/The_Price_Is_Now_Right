@@ -17,6 +17,7 @@ flask-wtf = "*"
 gunicorn = "*"
 lxml = "*"
 bootstrap-flask = "*"
+flask-migrate = "*"
 
 [requires]
 python_version = "3.7"
