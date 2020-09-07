@@ -1,4 +1,5 @@
-from app import *
+from functions import check_price_periodically
+from models import Product
 
 productList = Product.query.all()
 
