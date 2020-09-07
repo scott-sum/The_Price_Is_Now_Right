@@ -22,6 +22,7 @@ wtforms-validators = "*"
 email-validator = "*"
 psycopg2 = "*"
 python-dotenv = "*"
+flask-cli = "*"
 
 [requires]
 python_version = "3.7"

@@ -12,6 +12,8 @@ from bs4 import BeautifulSoup # needed for web scraping
 import smtplib
 import time
 
+from .commands import create_tables
+
 # Instantiation
 app = Flask(__name__)
 
