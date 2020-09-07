@@ -13,10 +13,13 @@ import smtplib
 import time
 
 # Instantiation
-app = Flask(__name__) 
-app.config['SECRET_KEY'] = 'fjnadfdkljfdakljfwnkn'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+app = Flask(__name__)
+
+app.config.from_pyfile('settings.py')
+
+#app.config['SECRET_KEY'] = 'fjnadfdkljfdakljfwnkn'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+#SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 bootstrap = Bootstrap(app) # allows use of flask-bootstrap
 db = SQLAlchemy(app) # database
