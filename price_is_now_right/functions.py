@@ -43,24 +43,16 @@ def check_price_initial():
     URL = request.form.get('url')
     budget = request.form.get('userBudget')
     mail = User.query.filter_by(id=current_user.id).first().email
-    #page = requests.get(URL, headers=headers) # essentially downloads the page    
-    #soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
-    # need to account for different types of eBay product pages
-    #if soup.find(id="price_inside_buybox") != None:
-        #price = soup.find(id="price_inside_buybox").text.strip()        
-    #elif soup.find(id="priceblock_ourprice") != None:
-        #price = soup.find(id="priceblock_ourprice").text.strip()
-    #else:
-        #price = soup.find(id="priceblock_dealprice").text.strip()
-    #print(soup.find(id="price_inside_buybox"))
-    #price = soup.find(id="price_inside_buybox").text.strip()
     page = requests.get(URL, headers=headers)
     htmlContent = html.fromstring(page.content)
-    price = htmlContent.xpath('//*[@id="prcIsum"]')[0].text_content().strip()
+    #different xpaths for sale products non-sale products
+    if len(htmlContent.xpath('//*[@id="prcIsum"]') != 0):
+        price = htmlContent.xpath('//*[@id="prcIsum"]')[0].text_content().strip()
+    else:
+        price = htmlContent.xpath('//*[@id="mm-saleDscPrc"]')[0].text_content().strip()
     converted_price = float(price[3:])
     productTitle = htmlContent.xpath('//*[@id="itemTitle"]/text()')[0]
-    #productTitle = soup.find(id="productTitle").text.strip() # get the title as well to send to wishlist
-
+    
     # send the email if price is under budget
     # otherwise, create an entry in the user's wishlist
     if (converted_price < float(budget)):
@@ -79,17 +71,12 @@ def check_price_periodically(product):
     budget = product.userBudget
     mail = User.query.filter_by(id=product.userId).first().email    
     page = requests.get(URL, headers=headers) # essentially downloads the page    
-    #soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
-    # need to account for different types of eBay product pages
-    #if soup.find(id="price_inside_buybox") != None:
-        #price = soup.find(id="price_inside_buybox").text.strip()        
-    #elif soup.find(id="priceblock_ourprice") != None:
-        #price = soup.find(id="priceblock_ourprice").text.strip()
-    #else:
-        #price = soup.find(id="priceblock_dealprice").text.strip()
-    #price = soup.find(id="price_inside_buybox").text.strip()
     htmlContent = html.fromstring(page.content)
-    price = htmlContent.xpath('//*[@id="price_inside_buybox"]')[0].text_content().strip()
+    #different xpaths for sale products non-sale products
+    if len(htmlContent.xpath('//*[@id="prcIsum"]') != 0):
+        price = htmlContent.xpath('//*[@id="prcIsum"]')[0].text_content().strip()
+    else:
+        price = htmlContent.xpath('//*[@id="mm-saleDscPrc"]')[0].text_content().strip()
     converted_price = float(price[5:10])
     
     product.currentPrice = converted_price
