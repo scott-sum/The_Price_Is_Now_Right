@@ -46,12 +46,13 @@ def check_price_initial():
     page = requests.get(URL, headers=headers) # essentially downloads the page    
     soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
     # need to account for different types of amazon product pages
-    if soup.find(id="price_inside_buybox") != None:
-        price = soup.find(id="price_inside_buybox").text.strip()
-    elif soup.find(id="priceblock_ourprice") != None:
-        price = soup.find(id="priceblock_ourprice").text.strip()
-    else:
-        price = soup.find(id="priceblock_dealprice").text.strip()
+    #if soup.find(id="price_inside_buybox") != None:
+        #price = soup.find(id="price_inside_buybox").text.strip()        
+    #elif soup.find(id="priceblock_ourprice") != None:
+        #price = soup.find(id="priceblock_ourprice").text.strip()
+    #else:
+        #price = soup.find(id="priceblock_dealprice").text.strip()
+    price = soup.find(id="price_inside_buybox").text.strip()
     converted_price = float(price[5:10])
     productTitle = soup.find(id="productTitle").text.strip() # get the title as well to send to wishlist
 
@@ -75,12 +76,13 @@ def check_price_periodically(product):
     page = requests.get(URL, headers=headers) # essentially downloads the page    
     soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
     # need to account for different types of amazon product pages
-    if soup.find(id="price_inside_buybox") != None:
-        price = soup.find(id="price_inside_buybox").text.strip()        
-    elif soup.find(id="priceblock_ourprice") != None:
-        price = soup.find(id="priceblock_ourprice").text.strip()
-    else:
-        price = soup.find(id="priceblock_dealprice").text.strip()
+    #if soup.find(id="price_inside_buybox") != None:
+        #price = soup.find(id="price_inside_buybox").text.strip()        
+    #elif soup.find(id="priceblock_ourprice") != None:
+        #price = soup.find(id="priceblock_ourprice").text.strip()
+    #else:
+        #price = soup.find(id="priceblock_dealprice").text.strip()
+    price = soup.find(id="price_inside_buybox").text.strip()
     converted_price = float(price[5:10])
     
     product.currentPrice = converted_price
