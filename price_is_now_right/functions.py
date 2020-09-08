@@ -42,7 +42,6 @@ def check_price_initial():
     URL = request.form.get('url')
     budget = request.form.get('userBudget')
     mail = User.query.filter_by(id=current_user.id).first().email
-    print(mail)
     page = requests.get(URL, headers=headers) # essentially downloads the page    
     soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
     # need to account for different types of amazon product pages
@@ -52,6 +51,7 @@ def check_price_initial():
         #price = soup.find(id="priceblock_ourprice").text.strip()
     #else:
         #price = soup.find(id="priceblock_dealprice").text.strip()
+    print(soup.find(id="price_inside_buybox"))
     price = soup.find(id="price_inside_buybox").text.strip()
     converted_price = float(price[5:10])
     productTitle = soup.find(id="productTitle").text.strip() # get the title as well to send to wishlist
