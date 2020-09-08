@@ -46,7 +46,7 @@ def check_price_initial():
     page = requests.get(URL, headers=headers)
     htmlContent = html.fromstring(page.content)
     #different xpaths for sale products non-sale products
-    if len(htmlContent.xpath('//*[@id="prcIsum"]') != 0):
+    if len(htmlContent.xpath('//*[@id="prcIsum"]')) != 0:
         price = htmlContent.xpath('//*[@id="prcIsum"]')[0].text_content().strip()
     else:
         price = htmlContent.xpath('//*[@id="mm-saleDscPrc"]')[0].text_content().strip()
