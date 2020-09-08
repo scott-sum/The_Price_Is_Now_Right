@@ -56,9 +56,9 @@ def check_price_initial():
     #price = soup.find(id="price_inside_buybox").text.strip()
     page = requests.get(URL, headers=headers)
     htmlContent = html.fromstring(page.content)
-    price = htmlContent.xpath('//*[@id="price_inside_buybox"]')[0].text_content().strip()
-    converted_price = float(price[5:10])
-    productTitle = htmlContent.xpath('//*[@id="productTitle"]')[0].text_content().strip()
+    price = htmlContent.xpath('//*[@id="prcIsum"]')[0].text_content().strip()
+    converted_price = float(price[3:])
+    productTitle = htmlContent.xpath('//*[@id="itemTitle"]/text()')[0]
     #productTitle = soup.find(id="productTitle").text.strip() # get the title as well to send to wishlist
 
     # send the email if price is under budget
