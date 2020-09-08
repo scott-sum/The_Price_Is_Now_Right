@@ -2,6 +2,7 @@ import requests
 from flask import request
 from flask_login import current_user
 from bs4 import BeautifulSoup # needed for web scraping
+from lxml import html
 import smtplib
 import time
 from .extensions import db
@@ -42,8 +43,8 @@ def check_price_initial():
     URL = request.form.get('url')
     budget = request.form.get('userBudget')
     mail = User.query.filter_by(id=current_user.id).first().email
-    page = requests.get(URL, headers=headers) # essentially downloads the page    
-    soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
+    #page = requests.get(URL, headers=headers) # essentially downloads the page    
+    #soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
     # need to account for different types of amazon product pages
     #if soup.find(id="price_inside_buybox") != None:
         #price = soup.find(id="price_inside_buybox").text.strip()        
@@ -51,10 +52,14 @@ def check_price_initial():
         #price = soup.find(id="priceblock_ourprice").text.strip()
     #else:
         #price = soup.find(id="priceblock_dealprice").text.strip()
-    print(soup.find(id="price_inside_buybox"))
-    price = soup.find(id="price_inside_buybox").text.strip()
+    #print(soup.find(id="price_inside_buybox"))
+    #price = soup.find(id="price_inside_buybox").text.strip()
+    page = requests.get(URL, headers=headers)
+    htmlContent = html.fromstring(page.content)
+    price = htmlContent.xpath('//*[@id="price_inside_buybox"]')[0].text_content().strip()
     converted_price = float(price[5:10])
-    productTitle = soup.find(id="productTitle").text.strip() # get the title as well to send to wishlist
+    productTitle = htmlContent.xpath('//*[@id="productTitle"]')[0].text_content().strip()
+    #productTitle = soup.find(id="productTitle").text.strip() # get the title as well to send to wishlist
 
     # send the email if price is under budget
     # otherwise, create an entry in the user's wishlist
@@ -74,7 +79,7 @@ def check_price_periodically(product):
     budget = product.userBudget
     mail = User.query.filter_by(id=product.userId).first().email    
     page = requests.get(URL, headers=headers) # essentially downloads the page    
-    soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
+    #soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
     # need to account for different types of amazon product pages
     #if soup.find(id="price_inside_buybox") != None:
         #price = soup.find(id="price_inside_buybox").text.strip()        
@@ -82,7 +87,9 @@ def check_price_periodically(product):
         #price = soup.find(id="priceblock_ourprice").text.strip()
     #else:
         #price = soup.find(id="priceblock_dealprice").text.strip()
-    price = soup.find(id="price_inside_buybox").text.strip()
+    #price = soup.find(id="price_inside_buybox").text.strip()
+    htmlContent = html.fromstring(page.content)
+    price = htmlContent.xpath('//*[@id="price_inside_buybox"]')[0].text_content().strip()
     converted_price = float(price[5:10])
     
     product.currentPrice = converted_price
