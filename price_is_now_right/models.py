@@ -29,5 +29,5 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired(), Length(min=8, max=80)])
 
 class PriceTrackForm(FlaskForm):
-    url = StringField('URL on Amazon', validators=[InputRequired()])
+    url = StringField('URL on eBay', validators=[InputRequired()])
     userBudget = StringField('My Budget', validators=[InputRequired()])

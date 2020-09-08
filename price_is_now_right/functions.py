@@ -25,7 +25,7 @@ def send_mail(address, link):
 
     # configuring the contents of the email
     subject = 'Price fell down! The price is now right!'
-    body = f'Check the amazon link! {link}'
+    body = f'Check the eBay link! {link}'
     msg = f"Subject: {subject}\n\n{body}"    
     server.sendmail(
         'scotttnsum@gmail.com',
@@ -36,7 +36,7 @@ def send_mail(address, link):
     server.quit() # remember to leave the server when finished sending email
 
 
-# gets information from price tracking form, parses the amazon page and finds the price
+# gets information from price tracking form, parses the eBay page and finds the price
 # if the price is under the budget, an email is sent to the user
 # performed initially after filling out form on dashboard
 def check_price_initial():
@@ -45,7 +45,7 @@ def check_price_initial():
     mail = User.query.filter_by(id=current_user.id).first().email
     #page = requests.get(URL, headers=headers) # essentially downloads the page    
     #soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
-    # need to account for different types of amazon product pages
+    # need to account for different types of eBay product pages
     #if soup.find(id="price_inside_buybox") != None:
         #price = soup.find(id="price_inside_buybox").text.strip()        
     #elif soup.find(id="priceblock_ourprice") != None:
@@ -80,7 +80,7 @@ def check_price_periodically(product):
     mail = User.query.filter_by(id=product.userId).first().email    
     page = requests.get(URL, headers=headers) # essentially downloads the page    
     #soup = BeautifulSoup(page.content, 'lxml') # uses bs4 and lxml parser
-    # need to account for different types of amazon product pages
+    # need to account for different types of eBay product pages
     #if soup.find(id="price_inside_buybox") != None:
         #price = soup.find(id="price_inside_buybox").text.strip()        
     #elif soup.find(id="priceblock_ourprice") != None:
