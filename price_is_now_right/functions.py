@@ -1,4 +1,5 @@
 import requests
+import os
 from flask import request
 from flask_login import current_user
 from bs4 import BeautifulSoup # needed for web scraping
@@ -21,14 +22,14 @@ def send_mail(address, link):
     server.ehlo()
 
     # google two factor authentication
-    server.login('scotttnsum@gmail.com', 'cpmhhoretmxmajmk')
+    server.login(os.environ.get('MAIL_USERNAME'), os.environ.get('MAIL_PASSWORD'))
 
     # configuring the contents of the email
     subject = 'Price fell down! The price is now right!'
     body = f'Check the eBay link! {link}'
     msg = f"Subject: {subject}\n\n{body}"    
     server.sendmail(
-        'scotttnsum@gmail.com',
+        os.environ.get('MAIL_USERNAME'),
         address,
         msg
     )
